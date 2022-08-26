@@ -1,0 +1,17 @@
+{
+  "name": "simple-drawing-tool",
+  "version": "1.0.0",
+  "description": "This is a simple drawing tool, using Node.js.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mariana Galante Dias",
+  "license": "ISC",
+  "bin": {
+    "hello": "./bin/app.js"
+  },
+  "dependencies": {
+    "node": "^16.17.0"
+  }
+}
