@@ -43,8 +43,8 @@ function draw() {
           let horizontalLine =
             "|" +
             space.repeat(inputs.x1 - 1) +
-            dot.repeat(inputs.x2 - inputs.x1) +
-            space.repeat(input[0].width - inputs.x2 + 1) +
+            dot.repeat(inputs.x2 - inputs.x1 + 1) +
+            space.repeat(input[0].width - inputs.x2) +
             "|";
           console.log(horizontalLine);
 
@@ -62,7 +62,29 @@ function draw() {
           //   }
           console.log(dash.repeat(input[0].width + 2));
         }
+
         if (inputs.x1 === inputs.x2) {
+          console.log(dash.repeat(input[0].width + 2));
+
+          for (let i = 1; i < inputs.y1; i++) {
+            console.log("|" + space.repeat(input[0].width) + "|");
+          }
+
+          for (i = inputs.y1; i <= inputs.y2; i++) {
+            console.log(
+              "|" +
+                space.repeat(inputs.x1 - 1) +
+                dot +
+                space.repeat(input[0].width - inputs.x2) +
+                "|"
+            );
+          }
+
+          for (let i = inputs.y2 + 1; i < input[0].heigth; i++) {
+            console.log("|" + space.repeat(input[0].width) + "|");
+          }
+
+          console.log(dash.repeat(input[0].width + 2));
         }
       }
 
