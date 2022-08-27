@@ -9,7 +9,10 @@
   "author": "Mariana Galante Dias",
   "license": "ISC",
   "bin": {
-    "hello": "./bin/app.js"
+    "C": "./bin/canvas.js",
+    "L": "./bin/line.js",
+    "R": "./bin/rectangle.js",
+    "B": "./bin/bucketFill.js"
   },
   "dependencies": {
     "node": "^16.17.0"

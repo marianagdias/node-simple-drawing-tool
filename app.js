@@ -1,5 +1,15 @@
 #!/usr/bin/env node
 
+// const readline = require("readline").createInterface({
+//   input: process.stdin,
+//   output: process.stdout,
+// });
+
+// readline.question(`Input?`, (input) => {
+//   let consoleInput = input.split(" ");
+//   readline.close();
+// });
+
 const input = [
   { command: "C", width: 20, heigth: 4 },
   { command: "L", x1: 1, y1: 2, x2: 6, y2: 2 },
@@ -51,15 +61,7 @@ function draw() {
           for (let i = inputs.y1; i < input[0].heigth; i++) {
             console.log("|" + space.repeat(input[0].width) + "|");
           }
-          //   for (let i = 0; i < input[0].heigth; i++) {
-          //     console.log("|" + space.repeat(input[0].width) + "|");
-          //   }
 
-          //   if (inputs.heigth >= 0) {
-          //     for (var i = 0; i < inputs.heigth; i++) {
-          //       console.log("|" + space.repeat(input[0].width) + "|");
-          //     }
-          //   }
           console.log(dash.repeat(input[0].width + 2));
         }
 
@@ -89,6 +91,45 @@ function draw() {
       }
 
       if (inputs.command === "R") {
+        console.log(dash.repeat(input[0].width + 2));
+
+        for (let i = 1; i < inputs.y1; i++) {
+          console.log("|" + space.repeat(input[0].width) + "|");
+        }
+
+        console.log(
+          "|" +
+            space.repeat(inputs.x1 - 1) +
+            dot.repeat(inputs.x2 - inputs.x1 + 1) +
+            space.repeat(input[0].width - inputs.x2) +
+            "|"
+        );
+
+        for (let i = inputs.y1 + 1; i < inputs.y2; i++) {
+          console.log(
+            "|" +
+              space.repeat(inputs.x1 - 1) +
+              dot +
+              space.repeat(inputs.x2 - inputs.x1 - 1) +
+              dot +
+              space.repeat(input[0].width - inputs.x2) +
+              "|"
+          );
+        }
+
+        console.log(
+          "|" +
+            space.repeat(inputs.x1 - 1) +
+            dot.repeat(inputs.x2 - inputs.x1 + 1) +
+            space.repeat(input[0].width - inputs.x2) +
+            "|"
+        );
+
+        for (let i = inputs.y2; i < input[0].heigth; i++) {
+          console.log("|" + space.repeat(input[0].width) + "|");
+        }
+
+        console.log(dash.repeat(input[0].width + 2));
       }
 
       if (inputs.command === "B") {
