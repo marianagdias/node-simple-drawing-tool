@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
-// const readline = require("readline").createInterface({
-//   input: process.stdin,
-//   output: process.stdout,
-// });
+const readline = require("readline").createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-// readline.question(`Input?`, (input) => {
-//   let consoleInput = input.split(" ");
-//   readline.close();
-// });
+let consoleInput = [];
+
+console.log(consoleInput);
 
 const input = [
   { command: "C", width: 20, heigth: 4 },
@@ -27,15 +26,15 @@ let bottomLine = [];
 let sides = [];
 
 function createCanvas() {
-  input.forEach((inputs, index) => {
-    if (inputs.command === "C" && index === 0) {
-      let upperCanvas = dash.repeat(inputs.width + 2);
+  consoleInput.forEach((inputs, index) => {
+    if (inputs[0] === "C" && index === 0) {
+      let upperCanvas = dash.repeat(inputs[1] + 2);
       let splitUpperCanvas = upperCanvas.split("");
       canvas.push(splitUpperCanvas);
 
-      if (inputs.heigth >= 0) {
-        for (let i = 0; i < inputs.heigth; i++) {
-          let middleCanvas = "|" + space.repeat(inputs.width) + "|";
+      if (inputs[2] >= 0) {
+        for (let i = 0; i < inputs[2]; i++) {
+          let middleCanvas = "|" + space.repeat(inputs[1]) + "|";
           let splitMiddleCanvas = middleCanvas.split("");
           canvas.push(splitMiddleCanvas);
         }
@@ -122,30 +121,55 @@ function draw() {
       }
 
       //BUCKET FILL
-      function bucketFill(i, j, oldColor, newColor) {
-        let canvasLine = "";
-        if (inputs.command === "B") {
-          //SPLIT LINES INTO ARRAYS
+      if (inputs.command === "B") {
+        function bucketFill(x, y, oldColor, newColor) {
+          if (x < 0 || x >= canvas[y].length || y < 0 || y >= canvas.length)
+            return;
+          if (canvas[y][x] !== oldColor) return;
 
-          if (canvas[j] !== oldColor) return;
           // set the color of node to newColor
-          canvas.forEach((element, index) => {
-            for (let i = 0; i <= index; i++) {
-              canvasLine = element;
-              canvasLine[x] = newColor;
-            }
-          });
 
-          bucketFill(i + 1, j, oldColor, newColor);
-          bucketFill(i - 1, j, oldColor, newColor);
-          bucketFill(i, j + 1, oldColor, newColor);
-          bucketFill(i, j - 1, oldColor, newColor);
+          canvas[y][x] = newColor;
+
+          //look for neighboring cell
+          bucketFill(x + 1, y, oldColor, newColor);
+          bucketFill(x - 1, y, oldColor, newColor);
+          bucketFill(x, y + 1, oldColor, newColor);
+          bucketFill(x, y - 1, oldColor, newColor);
         }
+
+        bucketFill(
+          inputs.x,
+          inputs.y,
+          canvas[inputs.y][inputs.x],
+          inputs.color
+        );
+
+        canvas.forEach((outputs) => {
+          console.log(outputs.join(""));
+        });
       }
-      bucketFill(inputs.x, inputs.y, " ", inputs.color);
     }
   });
 }
 
-createCanvas();
-draw();
+function takeInput(input) {
+  if (input === "Q") {
+    readline.close();
+    return;
+  } else {
+    consoleInput.push(input.split(" "));
+    readline.question("Type another input or Q to finish \n", takeInput);
+  }
+}
+
+readline.question(`Type the input to create a canvas \n`, (canvasInput) => {
+  consoleInput.push(canvasInput.split(" "));
+  createCanvas();
+  readline.question("Type another input or Q to finish \n", takeInput);
+
+  return;
+});
+
+// createCanvas();
+// draw();
