@@ -32,6 +32,8 @@ function createCanvas() {
       canvas.forEach((outputs, index) => {
         console.log(outputs.join(""));
       });
+    } else {
+      console.error("Invalid input, type Q and start again");
     }
   });
 }
@@ -131,7 +133,11 @@ function draw() {
         canvas.forEach((outputs) => {
           console.log(outputs.join(""));
         });
+      } else {
+        console.error("Invalid input, retry");
       }
+    } else {
+      console.error("Canvas not created, type Q and start again");
     }
   });
 }
@@ -149,6 +155,7 @@ function takeInput(input) {
 
 readline.question(`Type the input to create a canvas \n`, (canvasInput) => {
   consoleInput.push(canvasInput.split(" "));
+
   createCanvas();
   readline.question("Type another input or Q to finish \n", takeInput);
 
