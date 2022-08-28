@@ -7,8 +7,6 @@ const readline = require("readline").createInterface({
 
 let consoleInput = [];
 
-console.log(consoleInput);
-
 const dash = "-";
 const space = " ";
 const dot = "x";
@@ -17,7 +15,6 @@ let canvas = [];
 function createCanvas() {
   consoleInput.forEach((inputs, index) => {
     if (inputs[0] === "C" && index === 0) {
-      console.log(inputs[1]);
       let upperCanvas = dash.repeat(Number(inputs[1]) + 2);
 
       let splitUpperCanvas = upperCanvas.split("");
@@ -130,7 +127,6 @@ function draw() {
           canvas[inputs[2]][inputs[1]],
           inputs[3]
         );
-        console.log(canvas);
 
         canvas.forEach((outputs) => {
           console.log(outputs.join(""));
