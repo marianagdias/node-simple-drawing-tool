@@ -42,7 +42,7 @@ function draw() {
     }
 
     //IF CANVAS IS CREATED
-    if (index >= 1 && consoleInput[0][0] === "C") {
+    if (index >= 1 && canvasCreated) {
       //LINES
       if (inputs[0] === "L") {
         //HORIZONTAL LINE
@@ -139,10 +139,7 @@ function takeInput(input) {
 
 readline.question(`Type the input to create a canvas \n`, (canvasInput) => {
   consoleInput.push(canvasInput.split(" "));
-
   draw();
-
   readline.question("Type another input or Q to finish \n", takeInput);
-
   return;
 });
