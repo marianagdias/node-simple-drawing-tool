@@ -11,10 +11,12 @@ const dash = "-";
 const space = " ";
 const dot = "x";
 let canvas = [];
+let canvasCreated = false;
 
-function createCanvas() {
+function draw() {
+  //CREATE CANVAS
   consoleInput.forEach((inputs, index) => {
-    if (inputs[0] === "C" && index === 0) {
+    if (inputs[0] === "C" && index === 0 && !canvasCreated) {
       let upperCanvas = dash.repeat(Number(inputs[1]) + 2);
 
       let splitUpperCanvas = upperCanvas.split("");
@@ -29,17 +31,16 @@ function createCanvas() {
       }
       canvas.push(splitUpperCanvas);
 
-      canvas.forEach((outputs, index) => {
+      canvas.forEach((outputs) => {
         console.log(outputs.join(""));
       });
-    } else {
+
+      canvasCreated = true;
+    }
+    if (index === 0 && inputs[0] !== "C") {
       console.error("Invalid input, type Q and start again");
     }
-  });
-}
 
-function draw() {
-  consoleInput.forEach((inputs, index) => {
     //IF CANVAS IS CREATED
     if (index >= 1 && consoleInput[0][0] === "C") {
       //LINES
@@ -55,10 +56,6 @@ function draw() {
           let joinCanvas = canvas[inputs[2]].join("");
           canvas[inputs[2]] = joinCanvas;
           canvas[inputs[2]] = canvas[inputs[2]].split("");
-
-          canvas.forEach((outputs) => {
-            console.log(outputs.join(""));
-          });
         }
 
         //VERTICAL LINE
@@ -66,10 +63,6 @@ function draw() {
           for (let i = inputs[2]; i <= inputs[4]; i++) {
             canvas[i].splice(inputs[1], 1, "x");
           }
-
-          canvas.forEach((outputs) => {
-            console.log(outputs.join(""));
-          });
         }
       }
 
@@ -102,10 +95,6 @@ function draw() {
         let joinCanvas2 = canvas[inputs[4]].join("");
         canvas[inputs[4]] = joinCanvas2;
         canvas[inputs[4]] = canvas[inputs[4]].split("");
-
-        canvas.forEach((outputs) => {
-          console.log(outputs.join(""));
-        });
       }
 
       //BUCKET FILL
@@ -129,13 +118,7 @@ function draw() {
           canvas[inputs[2]][inputs[1]],
           inputs[3]
         );
-
-        canvas.forEach((outputs) => {
-          console.log(outputs.join(""));
-        });
       }
-    } else {
-      console.error("Canvas not created, type Q and start again");
     }
   });
 }
@@ -147,6 +130,9 @@ function takeInput(input) {
   } else {
     consoleInput.push(input.split(" "));
     draw();
+    canvas.forEach((outputs) => {
+      console.log(outputs.join(""));
+    });
     readline.question("Type another input or Q to finish \n", takeInput);
   }
 }
@@ -154,7 +140,8 @@ function takeInput(input) {
 readline.question(`Type the input to create a canvas \n`, (canvasInput) => {
   consoleInput.push(canvasInput.split(" "));
 
-  createCanvas();
+  draw();
+
   readline.question("Type another input or Q to finish \n", takeInput);
 
   return;
